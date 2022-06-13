@@ -58,6 +58,7 @@ namespace WindowsFormsApp1
             {
                 PROGRAM_STATIC_THREAD.Current_Thread.Abort();
             }
+            PROGRAM_STATIC_THREAD.Current_Thread = null;
             PROGRAM_STATIC_THREAD.In_Process = false;
         }
 

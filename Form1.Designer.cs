@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.panel1 = new System.Windows.Forms.Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btn_ran_obs = new System.Windows.Forms.Button();
@@ -59,6 +59,8 @@ namespace WindowsFormsApp1
             this.label8 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -68,20 +70,11 @@ namespace WindowsFormsApp1
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(958, 611);
-            this.panel1.TabIndex = 0;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Controls.Add(this.btn_setting);
@@ -89,7 +82,7 @@ namespace WindowsFormsApp1
             this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Location = new System.Drawing.Point(976, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(232, 611);
+            this.panel2.Size = new System.Drawing.Size(232, 637);
             this.panel2.TabIndex = 1;
             // 
             // panel5
@@ -97,9 +90,9 @@ namespace WindowsFormsApp1
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.btn_ran_obs);
             this.panel5.Controls.Add(this.btn_ran_maze);
-            this.panel5.Location = new System.Drawing.Point(3, 291);
+            this.panel5.Location = new System.Drawing.Point(3, 336);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(226, 101);
+            this.panel5.Size = new System.Drawing.Size(226, 82);
             this.panel5.TabIndex = 24;
             // 
             // btn_ran_obs
@@ -108,7 +101,7 @@ namespace WindowsFormsApp1
             this.btn_ran_obs.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_ran_obs.Location = new System.Drawing.Point(120, 3);
             this.btn_ran_obs.Name = "btn_ran_obs";
-            this.btn_ran_obs.Size = new System.Drawing.Size(99, 91);
+            this.btn_ran_obs.Size = new System.Drawing.Size(99, 72);
             this.btn_ran_obs.TabIndex = 1;
             this.btn_ran_obs.Text = "RANDOM OBSTACLE GENERATOR";
             this.btn_ran_obs.UseVisualStyleBackColor = false;
@@ -120,7 +113,7 @@ namespace WindowsFormsApp1
             this.btn_ran_maze.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_ran_maze.Location = new System.Drawing.Point(3, 3);
             this.btn_ran_maze.Name = "btn_ran_maze";
-            this.btn_ran_maze.Size = new System.Drawing.Size(99, 91);
+            this.btn_ran_maze.Size = new System.Drawing.Size(99, 72);
             this.btn_ran_maze.TabIndex = 0;
             this.btn_ran_maze.Text = "MAZE GENERATOR";
             this.btn_ran_maze.UseVisualStyleBackColor = false;
@@ -131,8 +124,8 @@ namespace WindowsFormsApp1
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.label5.Font = new System.Drawing.Font("UTM Showcard", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Green;
-            this.label5.Location = new System.Drawing.Point(4, 8);
+            this.label5.ForeColor = System.Drawing.Color.DarkGreen;
+            this.label5.Location = new System.Drawing.Point(5, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(224, 46);
             this.label5.TabIndex = 22;
@@ -152,16 +145,16 @@ namespace WindowsFormsApp1
             this.panel4.Controls.Add(this.AlgorithmsComboBox);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.lb_time);
-            this.panel4.Location = new System.Drawing.Point(3, 90);
+            this.panel4.Location = new System.Drawing.Point(3, 155);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(226, 196);
+            this.panel4.Size = new System.Drawing.Size(226, 175);
             this.panel4.TabIndex = 23;
             // 
             // btn_stop
             // 
-            this.btn_stop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btn_stop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.btn_stop.Font = new System.Drawing.Font("UTM Daxline Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_stop.Location = new System.Drawing.Point(158, 160);
+            this.btn_stop.Location = new System.Drawing.Point(158, 134);
             this.btn_stop.Name = "btn_stop";
             this.btn_stop.Size = new System.Drawing.Size(60, 33);
             this.btn_stop.TabIndex = 13;
@@ -174,7 +167,7 @@ namespace WindowsFormsApp1
             // 
             this.btn_start.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btn_start.Font = new System.Drawing.Font("UTM Daxline Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_start.Location = new System.Drawing.Point(3, 160);
+            this.btn_start.Location = new System.Drawing.Point(3, 134);
             this.btn_start.Name = "btn_start";
             this.btn_start.Size = new System.Drawing.Size(68, 33);
             this.btn_start.TabIndex = 11;
@@ -185,7 +178,7 @@ namespace WindowsFormsApp1
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(94, 103);
+            this.numericUpDown2.Location = new System.Drawing.Point(94, 77);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -205,7 +198,7 @@ namespace WindowsFormsApp1
             // 
             this.btn_pause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btn_pause.Font = new System.Drawing.Font("UTM Daxline Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_pause.Location = new System.Drawing.Point(77, 160);
+            this.btn_pause.Location = new System.Drawing.Point(77, 134);
             this.btn_pause.Name = "btn_pause";
             this.btn_pause.Size = new System.Drawing.Size(75, 33);
             this.btn_pause.TabIndex = 12;
@@ -218,7 +211,7 @@ namespace WindowsFormsApp1
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("UTM Cookies", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(43, 104);
+            this.label3.Location = new System.Drawing.Point(43, 78);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 17);
             this.label3.TabIndex = 22;
@@ -228,7 +221,7 @@ namespace WindowsFormsApp1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("UTM Cookies", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 131);
+            this.label1.Location = new System.Drawing.Point(12, 105);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 17);
             this.label1.TabIndex = 17;
@@ -238,7 +231,7 @@ namespace WindowsFormsApp1
             // 
             this.lb_step.AutoSize = true;
             this.lb_step.Font = new System.Drawing.Font("UTM Cookies", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_step.Location = new System.Drawing.Point(133, 42);
+            this.lb_step.Location = new System.Drawing.Point(143, 42);
             this.lb_step.Name = "lb_step";
             this.lb_step.Size = new System.Drawing.Size(24, 25);
             this.lb_step.TabIndex = 21;
@@ -257,7 +250,7 @@ namespace WindowsFormsApp1
             // AlgorithmsComboBox
             // 
             this.AlgorithmsComboBox.FormattingEnabled = true;
-            this.AlgorithmsComboBox.Location = new System.Drawing.Point(93, 131);
+            this.AlgorithmsComboBox.Location = new System.Drawing.Point(93, 105);
             this.AlgorithmsComboBox.Name = "AlgorithmsComboBox";
             this.AlgorithmsComboBox.Size = new System.Drawing.Size(121, 21);
             this.AlgorithmsComboBox.TabIndex = 9;
@@ -277,7 +270,7 @@ namespace WindowsFormsApp1
             // 
             this.lb_time.AutoSize = true;
             this.lb_time.Font = new System.Drawing.Font("UTM Cookies", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_time.Location = new System.Drawing.Point(41, 42);
+            this.lb_time.Location = new System.Drawing.Point(35, 42);
             this.lb_time.Name = "lb_time";
             this.lb_time.Size = new System.Drawing.Size(52, 25);
             this.lb_time.TabIndex = 19;
@@ -289,7 +282,7 @@ namespace WindowsFormsApp1
             this.groupBox1.Controls.Add(this.btn_map_reset);
             this.groupBox1.Controls.Add(this.btn_path_reset);
             this.groupBox1.Font = new System.Drawing.Font("Georgia", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(3, 491);
+            this.groupBox1.Location = new System.Drawing.Point(3, 517);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(226, 55);
             this.groupBox1.TabIndex = 16;
@@ -329,7 +322,7 @@ namespace WindowsFormsApp1
             // 
             this.btn_setting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btn_setting.Font = new System.Drawing.Font("Rockwell", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_setting.Location = new System.Drawing.Point(3, 552);
+            this.btn_setting.Location = new System.Drawing.Point(3, 578);
             this.btn_setting.Name = "btn_setting";
             this.btn_setting.Size = new System.Drawing.Size(226, 31);
             this.btn_setting.TabIndex = 10;
@@ -345,7 +338,7 @@ namespace WindowsFormsApp1
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.numericUpDown1);
             this.panel3.Controls.Add(this.label8);
-            this.panel3.Location = new System.Drawing.Point(3, 398);
+            this.panel3.Location = new System.Drawing.Point(3, 424);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(226, 87);
             this.panel3.TabIndex = 7;
@@ -405,20 +398,39 @@ namespace WindowsFormsApp1
             // 
             this.progressBar1.BackColor = System.Drawing.Color.DimGray;
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.progressBar1.Location = new System.Drawing.Point(3, 589);
+            this.progressBar1.Location = new System.Drawing.Point(3, 615);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(226, 19);
             this.progressBar1.TabIndex = 0;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.ICON;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(958, 637);
+            this.panel1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.ClientSize = new System.Drawing.Size(1220, 635);
+            this.BackColor = System.Drawing.Color.MediumSpringGreen;
+            this.ClientSize = new System.Drawing.Size(1220, 661);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(1236, 700);
+            this.MinimumSize = new System.Drawing.Size(1236, 700);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PATH FINDER";
@@ -469,6 +481,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btn_ran_maze;
         private System.Windows.Forms.Button btn_ran_obs;
+        private System.Windows.Forms.Timer timer1;
     }
 
    

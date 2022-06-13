@@ -10,10 +10,12 @@ namespace WindowsFormsApp1
     {
         private NODE[,] MAP = new NODE[PROGRAM_STATIC_VARS.main_H, PROGRAM_STATIC_VARS.main_W];
         private List<OPEN_TYPE> OPEN_List = new List<OPEN_TYPE>();
-        public A_star(NODE[,] MAP1)
+        private Form1 mainF;
+        public A_star(NODE[,] MAP1, object sender)
         {
             this.MAP = MAP1;
             BasicSetup();
+            mainF = (Form1)sender;
         }
 
         public bool EXEC()
@@ -27,17 +29,14 @@ namespace WindowsFormsApp1
 
             while (OPEN_List.Count != 0)
             {
-                /*foreach (OPEN_TYPE a in OPEN_List)
-                {
-                    Console.WriteLine(a.Total);
-                }
-                Console.WriteLine("\n");*/
                 if(OPEN_List[0].Current_Node.Type_N == NODE.Type_Node.END_NODE) // Tìm được đường đi
                 {
                     return SetSucessPath(OPEN_List[0]);
                 }
-                GetSuitableConnectNode(OPEN_List[0]); //Có tìm được điểm mới
-                OPEN_List = Sort_List(OPEN_List); //Sort Open List
+                if (GetSuitableConnectNode(OPEN_List[0])) //Có tìm được điểm mới
+                {
+                    OPEN_List = Sort_List(OPEN_List); //Sort Open List
+                }
             }
             return false;
         }
@@ -47,16 +46,14 @@ namespace WindowsFormsApp1
             int count = 0;
             int I = _node.Current_Node.index_X;
             int J = _node.Current_Node.index_Y;
-
-            
-            ///////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////
             for (int i = -1; i <= 1; i++)
             {
                 for (int j = -1; j <= 1; j++)
                 {
                     PROGRAM_STATIC_THREAD.PauseAndResumeThread();
-                    //if ((i != 0 || j != 0) && (Math.Abs(i) != Math.Abs(j))) ///**********************
-                    if (i != 0 || j != 0)
+                    if ((i != 0 || j != 0) && (Math.Abs(i) != Math.Abs(j))) ///**********************
+                    //if (i != 0 || j != 0)
                     {
                         if (IsSuitable(I + i,J + j)) //Check xem thỏa điều kiện hay k
                         {
@@ -68,9 +65,9 @@ namespace WindowsFormsApp1
                                     OPEN_List.RemoveAt(tmp);
                                     DrawOPENs(I + i, J + j);
                                     OPEN_List.Add(new OPEN_TYPE(MAP[I + i, J + j],
-                                        _node.Total_Cost + MAP[I + i, J + j].Cost,
-                                        GetHeuristicVal(MAP[I + i, J + j]),
-                                        _node.Way));
+                                                                _node.Total_Cost + MAP[I + i, J + j].Cost,
+                                                                GetHeuristicVal(MAP[I + i, J + j]),
+                                                                _node.Way));
                                     count++;
                                 }
                             }
@@ -78,12 +75,11 @@ namespace WindowsFormsApp1
                             {
                                 DrawOPENs(I + i, J + j);
                                 OPEN_List.Add(new OPEN_TYPE(MAP[I + i, J + j],
-                                        _node.Total_Cost + MAP[I + i, J + j].Cost,
-                                        GetHeuristicVal(MAP[I + i, J + j]),
-                                        _node.Way));
+                                                            _node.Total_Cost + MAP[I + i, J + j].Cost,
+                                                            GetHeuristicVal(MAP[I + i, J + j]),
+                                                            _node.Way));
                                 count++;
                             }
-                            
                         }
                     }
                 }
@@ -92,10 +88,8 @@ namespace WindowsFormsApp1
             int b = OPEN_List[0].Current_Node.index_Y;
             MAP[a, b].FLAG = true;
             OPEN_List.RemoveAt(0); //POP
-            if (count == 0)
-            {
-                return false;
-            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            if (count == 0){ return false; }
             return true;
         }
 

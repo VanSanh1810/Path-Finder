@@ -15,6 +15,17 @@ namespace WindowsFormsApp1
     {
 
         NODE[,] MAP = new NODE[PROGRAM_STATIC_VARS.main_H, PROGRAM_STATIC_VARS.main_W];
+
+        private delegate void StepChangeHandle(int _step);
+        private event StepChangeHandle StepChange;
+        private int TimerVal = 0;
+        public int step
+        {
+            get { return this.step; }
+            set => StepChange?.Invoke(value);
+        }
+        private int IsTimming = 0; // -1 stop 1 timming 0 pause
+
         
         public Form1()
         {
@@ -27,13 +38,23 @@ namespace WindowsFormsApp1
             label7.Text = "TYPE: PATH";
             label7.ForeColor = SETTING_STATIC_VARS.PathNode_Color;
             AlgorithmsComboBox.SelectedIndex = 0;
+            btn_start.Enabled = true;
+            btn_pause.Enabled = false;
+            btn_stop.Enabled = false;
             PROGRAM_STATIC_THREAD.ChangeProcessState += PROGRAM_STATIC_THREAD_ChangeProcessState; //Sự kiện thay đổi biên InProcess
             PROGRAM_STATIC_THREAD.In_Process = false;
+            this.StepChange += Form1_StepChange;
+            step = 0;
         }
 
-        
+        private void Form1_StepChange(int _step)
+        {
+            lb_step.Text = _step.ToString();
+        }
 
-         
+
+
+
         #region Setup cơ bản
         public void AddItemToComboBox()
         {
@@ -81,14 +102,11 @@ namespace WindowsFormsApp1
             p.Name = name;
             p.Location = new Point(x, y);
             p.Size = new Size(PROGRAM_STATIC_VARS.point_size, PROGRAM_STATIC_VARS.point_size);
-            p.BackColor = System.Drawing.Color.DarkGray;
+            p.BackColor = SETTING_STATIC_VARS.PathNode_Color;
             p.BorderStyle = BorderStyle.FixedSingle;
             p.Cursor = Cursors.Cross;
 
-            
-            
-
-            //EVENT
+            #region EVENT
             p.MouseMove += new MouseEventHandler(this.Dinamic_MouseMove);
             p.MouseWheel += new MouseEventHandler(this.Dinamic_MouseWheel);
 
@@ -97,10 +115,7 @@ namespace WindowsFormsApp1
             p.MouseHover += new EventHandler(this.Dinamic_MouseHover);
             p.MouseLeave += new EventHandler(this.Dinamic_MouseLeave);
             p.MouseEnter += new EventHandler(this.Dinamic_MouseEnter);
-            
-           
-
-           
+            #endregion
 
             return p;
         }
@@ -468,6 +483,8 @@ namespace WindowsFormsApp1
             if (State)
             {
                 btn_start.Enabled = false;
+                btn_pause.Enabled = true;
+                btn_stop.Enabled = true;
                 AlgorithmsComboBox.Enabled = false;
                 btn_setting.Enabled = false;
                 btn_map_reset.Enabled = false;
@@ -479,6 +496,8 @@ namespace WindowsFormsApp1
             else
             {
                 btn_start.Enabled = true;
+                btn_pause.Enabled = false;
+                btn_stop.Enabled = false;
                 AlgorithmsComboBox.Enabled = true;
                 btn_setting.Enabled = true;
                 btn_map_reset.Enabled = true;
@@ -504,18 +523,22 @@ namespace WindowsFormsApp1
                 {
                     case 0: //A*
                         {
-                            A_star a = new A_star(MAP);
+                            A_star a = new A_star(MAP, sender);
                             ThreadStart threadStart = new ThreadStart(() =>
                             {
                                 if (a.EXEC())
                                 {
+                                    IsTimming = -1;
                                     MessageBox.Show("OK");
                                 }
                                 else
                                 {
+                                    IsTimming = -1;
                                     MessageBox.Show("FAIL");
                                 }
                             });
+                            IsTimming = 1;
+                            timer1.Start();
                             PROGRAM_STATIC_THREAD.StopCurrentAndRun(new Thread(threadStart) { IsBackground = true});
                             break;
                         }
@@ -544,21 +567,17 @@ namespace WindowsFormsApp1
             PROGRAM_STATIC_THREAD.AbortCurrent();
             if (MessageBox.Show("Are you sure you want to delete the path ?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
+                step = 0;
                 ClearWay();
             }
         }
 
         private void btn_map_reset_Click(object sender, EventArgs e)
         {
-            if (PROGRAM_STATIC_THREAD.Current_Thread != null)
-            {
-                PROGRAM_STATIC_THREAD.Current_Thread.Abort();
-            }
-            PROGRAM_STATIC_THREAD.In_Process = false;
-            PROGRAM_STATIC_VARS.Set_DrawPointer(null);
-
+            PROGRAM_STATIC_THREAD.AbortCurrent();
             if (MessageBox.Show("Are you sure you want to clear the map ?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
+                step = 0;
                 ClearMap();
             }
         }
@@ -569,18 +588,22 @@ namespace WindowsFormsApp1
             {
                 btn_pause.Text = "RESUME";
                 btn_pause.BackColor = Color.Red;
+                IsTimming = 0;
                 PROGRAM_STATIC_THREAD.ThreadPause_Curent = true; //Dừng
             }
             else
             {
                 btn_pause.Text = "PAUSE";
                 btn_pause.BackColor = Color.FromArgb(128, 128, 255);
+                IsTimming = 1;
                 PROGRAM_STATIC_THREAD.ThreadPause_Curent = false; //Chạy
             }
         }
 
         private void btn_stop_Click(object sender, EventArgs e)
         {
+            timer1.Stop();
+            IsTimming = -1;
             PROGRAM_STATIC_THREAD.Current_Thread.Abort();
             PROGRAM_STATIC_THREAD.In_Process = false;
             PROGRAM_STATIC_THREAD.ThreadPause_Curent = false;
@@ -639,6 +662,14 @@ namespace WindowsFormsApp1
 
                 });
                 PROGRAM_STATIC_THREAD.StopCurrentAndRun(new Thread(threadStart) { IsBackground = true });
+            }
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (IsTimming == 1) // Running
+            {
+                TimerVal += 10;
+                lb_time.Text = TimerVal + " ms";
             }
         }
         #endregion
@@ -706,6 +737,8 @@ namespace WindowsFormsApp1
         }
 
         #endregion
+
+        
     }
     class ComboBoxItem
     {

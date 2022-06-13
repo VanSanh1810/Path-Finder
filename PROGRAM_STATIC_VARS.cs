@@ -12,7 +12,7 @@ namespace WindowsFormsApp1
         
 
         //Thuộc tính cơ bản
-        public static int main_H { get; set; } = 43; //y 43
+        public static int main_H { get; set; } = 45; //y 45
         public static int main_W { get; set; } = 68; //x 68
         public static int point_size { get; set; } = 15;
         public static int main_loc { get; set; } = 3; //Vi tri node dau tien (3,3)

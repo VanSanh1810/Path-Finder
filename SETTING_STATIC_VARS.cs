@@ -12,7 +12,7 @@ namespace WindowsFormsApp1
         public static bool Show_Info { get; set; } = true;
         public static bool Use_PathWeight { get; set; } = true;
 
-        public static bool IgnoreDelay_mazGen { get; set; } = true;
+        public static bool IgnoreDelay_mazGen { get; set; } = false;
         public static int Delay_Time { get; set; } = 0;
         public static Color StartNode_Color { get; set; } = Color.Green;
         public static Color EndNode_Color { get; set; } = Color.Red;
