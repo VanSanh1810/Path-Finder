@@ -31,7 +31,7 @@ namespace WindowsFormsApp1
             //     |    |  2 |    |
             //     |____|____|____|
         }
-        public string EXECUTE_MAZE_GENERATION()
+        public string EXEC()
         {
             SetAllMapToBlock();
 
@@ -73,14 +73,7 @@ namespace WindowsFormsApp1
                     tmp_orderDirec_List.Add(tmp_ranNum); 
                     CheckAndAdd(X, Y, tmp_ranNum, DFS_Stack); //Kiem tra va add vao Stack
                     //////
-                    if (!SETTING_STATIC_VARS.IgnoreDelay_mazGen)
-                    {
-                        Thread.Sleep(SETTING_STATIC_VARS.Delay_Time); //Delay time
-                    }
-                    while (PROGRAM_STATIC_THREAD.ThreadPause_Curent)
-                    {
-                        //Pause and resume thread
-                    }
+                    PROGRAM_STATIC_THREAD.PauseAndResumeThread();
                     /////
                 }
             }
@@ -93,7 +86,7 @@ namespace WindowsFormsApp1
 
         public void CheckAndAdd(int Curent_x,int Curent_y, int Direction, Stack<NODE> DFS_Stack) //Current là node gốc, Direction là hướng loang ra của nó
         {
-            switch (Direction)
+            switch (Direction) //Hướng từ node đang xét
             {
                 case 0: //TOP
                     {
@@ -149,10 +142,10 @@ namespace WindowsFormsApp1
 
         public bool IsSuitable(int x, int y) //Điều kiện để được chọn
         {
-            if(MAP[x, y].FlagForDFS == false) //Chưa xét và phải là Node tường (wall)
+            if(MAP[x, y].FLAG == false) //Chưa xét và phải là Node tường (wall)
             {
                 
-                if(GetNumberPathAround(x,y) <= _rnd.Next(1, 2) && Check(x,y)) //Xung quanh chỉ được tối đa 1 hoặc 2 block Path
+                if(GetNumberPathAround(x,y) <= _rnd.Next(1, 2) && Check(x,y)) //Xung quanh chỉ được tối đa 1 hoặc 2 block Path Và Chống trùng lặp làm tăng kích thước đường đi
                 {
                     return true;
                 }
@@ -182,22 +175,22 @@ namespace WindowsFormsApp1
                 {
                     int tmp1 = x + i;
                     int tmp2 = y + j;
-                    if (InSide(tmp1, tmp2))
+                    if (IsInSide(tmp1, tmp2))
                     {
-                        if (MAP[tmp1,tmp2].FlagForDFS == true)
+                        if (MAP[tmp1,tmp2].FLAG == true)
                         {
                             if (i == 1)
                             {
                                 if (j == 1) //BOT RIGHT
                                 {
-                                    if(MAP[tmp1 - 1, tmp2].FlagForDFS == false || MAP[tmp1, tmp2 - 1].FlagForDFS == false)
+                                    if(MAP[tmp1 - 1, tmp2].FLAG == false || MAP[tmp1, tmp2 - 1].FLAG == false)
                                     {
                                         Count++;
                                     }
                                 }
                                 else // BOT LEFT
                                 {
-                                    if (MAP[tmp1 - 1, tmp2].FlagForDFS == false || MAP[tmp1, tmp2 + 1].FlagForDFS == false)
+                                    if (MAP[tmp1 - 1, tmp2].FLAG == false || MAP[tmp1, tmp2 + 1].FLAG == false)
                                     {
                                         Count++;
                                     }
@@ -207,14 +200,14 @@ namespace WindowsFormsApp1
                             {
                                 if (j == 1) //TOP RIGHT
                                 {
-                                    if (MAP[tmp1 + 1, tmp2].FlagForDFS == false || MAP[tmp1, tmp2 - 1].FlagForDFS == false)
+                                    if (MAP[tmp1 + 1, tmp2].FLAG == false || MAP[tmp1, tmp2 - 1].FLAG == false)
                                     {
                                         Count++;
                                     }
                                 }
                                 else // TOP LEFT
                                 {
-                                    if (MAP[tmp1 + 1, tmp2].FlagForDFS == false || MAP[tmp1, tmp2 + 1].FlagForDFS == false)
+                                    if (MAP[tmp1 + 1, tmp2].FLAG == false || MAP[tmp1, tmp2 + 1].FLAG == false)
                                     {
                                         Count++;
                                     }
@@ -250,9 +243,9 @@ namespace WindowsFormsApp1
                     {
                         int tmp1 = x + i;
                         int tmp2 = y + j;
-                        if (InSide(tmp1,tmp2))
+                        if (IsInSide(tmp1,tmp2))
                         {
-                            if (MAP[tmp1, tmp2].FlagForDFS == true)
+                            if (MAP[tmp1, tmp2].FLAG == true)
                             {
                                 Count++;
                             }
@@ -266,7 +259,7 @@ namespace WindowsFormsApp1
             }
             return Count;
         }
-        private bool InSide(int x, int y)
+        private bool IsInSide(int x, int y)
         {
             if (x >= 0 && y >= 0 && x < PROGRAM_STATIC_VARS.main_H && y < PROGRAM_STATIC_VARS.main_W)
             {
@@ -276,7 +269,7 @@ namespace WindowsFormsApp1
             {
                 return false;
             }
-        }
+        } //Check Tọa độ còn thuộc map hay k
 
 
         public void SetToPath(NODE tmp)
@@ -284,7 +277,7 @@ namespace WindowsFormsApp1
             tmp.Cost = 1;
             tmp.Type_N = NODE.Type_Node.PATH_NODE;
             tmp.pictureBox.BackColor = SETTING_STATIC_VARS.PathNode_Color;
-            tmp.FlagForDFS = true;
+            tmp.FLAG = true;
         }
 
         public void SetAllMapToBlock()
@@ -294,7 +287,7 @@ namespace WindowsFormsApp1
                 x.Cost = -1;
                 x.Type_N = NODE.Type_Node.BLOCK_NODE;
                 x.pictureBox.BackColor = SETTING_STATIC_VARS.BlockNode_Color;
-                x.FlagForDFS = false;
+                x.FLAG = false;
             }
         }
     }

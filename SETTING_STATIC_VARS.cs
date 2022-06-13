@@ -28,6 +28,8 @@ namespace WindowsFormsApp1
         }
         public static MAZE_GEN_ALG _MAZE_GEN_ALG { get; set; } = MAZE_GEN_ALG.DFS;
 
+
+
         public static Color Pre_Color { get; set; } = Color.DarkGray;
 
         

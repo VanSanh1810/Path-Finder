@@ -28,7 +28,13 @@ namespace WindowsFormsApp1
         public PictureBox pictureBox { get; set; }
 
         public ToolTip toolTip { get; set; }
-        public bool FlagForDFS { get; set; } = false;
 
+        /// <summary>
+        /// ///////////////////////////////
+        /// </summary>
+        public bool FLAG { get; set; } = false;
+        //public bool FlagForDFS { get; set; } = false;
+        //public bool FlagForDFS { get; set; } = false;
+        
     }
 }

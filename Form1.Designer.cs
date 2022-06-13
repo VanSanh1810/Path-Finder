@@ -45,7 +45,7 @@ namespace WindowsFormsApp1
             this.label1 = new System.Windows.Forms.Label();
             this.lb_step = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.AlgorithmsComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lb_time = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -149,7 +149,7 @@ namespace WindowsFormsApp1
             this.panel4.Controls.Add(this.label1);
             this.panel4.Controls.Add(this.lb_step);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.comboBox1);
+            this.panel4.Controls.Add(this.AlgorithmsComboBox);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.lb_time);
             this.panel4.Location = new System.Drawing.Point(3, 90);
@@ -254,14 +254,14 @@ namespace WindowsFormsApp1
             this.label4.TabIndex = 20;
             this.label4.Text = "STEP";
             // 
-            // comboBox1
+            // AlgorithmsComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(93, 131);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 9;
-            this.comboBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBox1_KeyPress);
+            this.AlgorithmsComboBox.FormattingEnabled = true;
+            this.AlgorithmsComboBox.Location = new System.Drawing.Point(93, 131);
+            this.AlgorithmsComboBox.Name = "AlgorithmsComboBox";
+            this.AlgorithmsComboBox.Size = new System.Drawing.Size(121, 21);
+            this.AlgorithmsComboBox.TabIndex = 9;
+            this.AlgorithmsComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBox1_KeyPress);
             // 
             // label2
             // 
@@ -448,7 +448,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox AlgorithmsComboBox;
         private System.Windows.Forms.Button btn_setting;
         private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.Button btn_stop;

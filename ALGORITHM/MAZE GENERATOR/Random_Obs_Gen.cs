@@ -35,14 +35,7 @@ namespace WindowsFormsApp1
                     while (tmp.Count != 0)
                     {
                         ///
-                        if (!SETTING_STATIC_VARS.IgnoreDelay_mazGen)
-                        {
-                            Thread.Sleep(SETTING_STATIC_VARS.Delay_Time); //Delay time
-                        }
-                        while (PROGRAM_STATIC_THREAD.ThreadPause_Curent)
-                        {
-                            //Pause and resume thread
-                        }
+                        PROGRAM_STATIC_THREAD.PauseAndResumeThread();
                         ///
                         int j = tmp.Pop();
                         MAP[i, j].Cost = -1;

@@ -9,10 +9,38 @@ namespace WindowsFormsApp1
 {
     static class PROGRAM_STATIC_THREAD
     {
+        
+        
         /// <summary>
+        /// Random obs on map
+        /// </summary>
+
+
+
+        ////////////////////////////////Thread Control////////////////////////////////////////////////////
+        /// <summary>
+        /// /// <summary>
         /// Curent Thread
         /// </summary>
-        public static Thread Current_Thread { get;private set; }
+        #region Thread Control
+        public delegate void ProcessStateHandler(bool State);
+
+        public static event ProcessStateHandler ChangeProcessState;
+        
+        public static bool In_Process
+        {
+            get { return PROGRAM_STATIC_THREAD.In_Process; }
+            set
+            {
+                //this.In_Process = value; //Cause Stack over flow ???
+
+                ChangeProcessState?.Invoke(value);
+            }
+        }
+
+        
+
+        public static Thread Current_Thread { get; private set; }
         public static void StopCurrentAndRun(Thread Run)
         {
             if (Current_Thread != null)
@@ -20,53 +48,33 @@ namespace WindowsFormsApp1
                 Current_Thread.Abort();
             }
             Current_Thread = Run;
+            Current_Thread.IsBackground = true;
             Current_Thread.Start();
         }
+
+        public static void AbortCurrent()
+        {
+            if (PROGRAM_STATIC_THREAD.Current_Thread != null)
+            {
+                PROGRAM_STATIC_THREAD.Current_Thread.Abort();
+            }
+            PROGRAM_STATIC_THREAD.In_Process = false;
+        }
+
+
         public static bool ThreadPause_Curent { get; set; } = false; //Pause or resume
-        /// <summary>
-        /// Random obs on map
-        /// </summary>
-        public static Thread Thrd_Random_Obs_Map { get; private set; }
-        public static void Set_Thrd_Random_Obs_Map(ThreadStart threadStart, bool _IsBackGround)
+
+        public static void PauseAndResumeThread()
         {
-            Thrd_Random_Obs_Map = new Thread(threadStart);
-            Thrd_Random_Obs_Map.IsBackground = _IsBackGround;
+            if (!SETTING_STATIC_VARS.IgnoreDelay_mazGen)
+            {
+                Thread.Sleep(SETTING_STATIC_VARS.Delay_Time); //Delay time
+            }
+            while (PROGRAM_STATIC_THREAD.ThreadPause_Curent)
+            {
+                //Pause and resume thread
+            }
         }
-        public static bool ThreadPause_Random_Obs_Map { get; set; } = false;
-
-
-        /// <summary>
-        /// Clear all map
-        /// </summary>
-        public static Thread Thrd_ClearMap { get; private set; }
-        public static void Set_Thrd_ClearMap(ThreadStart threadStart, bool _IsBackGround)
-        {
-            Thrd_ClearMap = new Thread(threadStart);
-            Thrd_ClearMap.IsBackground = _IsBackGround;
-        }
-        public static bool ThreadPause_ClearMap { get; set; } = false;
-
-
-        /// <summary>
-        /// Clear all path
-        /// </summary>
-        public static Thread Thrd_ClearPath { get; private set; }
-        public static void Set_Thrd_ClearPath(ThreadStart threadStart, bool _IsBackGround)
-        {
-            Thrd_ClearPath = new Thread(threadStart);
-            Thrd_ClearPath.IsBackground = _IsBackGround;
-        }
-        public static bool ThreadPause_ClearPath { get; set; } = false;
-
-        /// <summary>
-        /// DFS Maze Gen
-        /// </summary>
-        public static Thread Thrd_DFS_MazeGen { get; private set; }
-        public static void Set_Thrd_DFS_MazeGen(ThreadStart threadStart, bool _IsBackGround)
-        {
-            Thrd_DFS_MazeGen = new Thread(threadStart);
-            Thrd_DFS_MazeGen.IsBackground = _IsBackGround;
-        }
-        public static bool ThreadPause_Thrd_DFS_MazeGen { get; set; } = false;
+        #endregion
     }
 }

@@ -11,16 +11,14 @@ namespace WindowsFormsApp1
     {
         
 
-
+        //Thuộc tính cơ bản
         public static int main_H { get; set; } = 43; //y 43
         public static int main_W { get; set; } = 68; //x 68
         public static int point_size { get; set; } = 15;
         public static int main_loc { get; set; } = 3; //Vi tri node dau tien (3,3)
         
-
+        //Con trỏ User
         public static int Mouse_State { get; set; } = 0; //1 draw 0 not activate -1 erase
-        public static PictureBox Have_Start { get; set; }
-        public static PictureBox Have_End { get; set; }
         public enum MOUSE_DRAW_TYPE
         {
             BLOCK,
@@ -28,6 +26,11 @@ namespace WindowsFormsApp1
             WAY
         }
         public static MOUSE_DRAW_TYPE mOUSE_DRAW_TYPE { get; set; } = MOUSE_DRAW_TYPE.PATH;
+
+        //Start And End Node
+        public static PictureBox Have_Start { get; set; }
+        public static PictureBox Have_End { get; set; }
+        
 
         public static int START_X { get; private set; }
         public static int START_Y { get; private set; }
@@ -46,9 +49,10 @@ namespace WindowsFormsApp1
             END_Y = j;
         }
 
+        //Phần trăm vật cản trên 1 dòng (Random Obs)
         public static double Percentage_of_obstructions { get; private set; } = 0.25;
 
-
+        //Con trỏ Program
         public static NODE DrawPointer { get; private set; }
         public static void Set_DrawPointer(NODE Pointer)
         {
@@ -93,6 +97,8 @@ namespace WindowsFormsApp1
                 DrawPointer = null;
             }
         }
+
+        //Hàm
         
     }
 }

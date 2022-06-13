@@ -38,6 +38,7 @@ namespace WindowsFormsApp1
             this.btn_color_block = new System.Windows.Forms.Button();
             this.cbtn_usepthW = new System.Windows.Forms.CheckBox();
             this.cbx_IgnoreDelay = new System.Windows.Forms.CheckBox();
+            this.btn_color_way = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@ namespace WindowsFormsApp1
             this.rbtn_maz_gen_PRIM = new System.Windows.Forms.RadioButton();
             this.rbtn_maz_gen_DFS = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.btn_color_way = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -142,6 +142,16 @@ namespace WindowsFormsApp1
             this.cbx_IgnoreDelay.UseVisualStyleBackColor = true;
             this.cbx_IgnoreDelay.CheckedChanged += new System.EventHandler(this.cbx_IgnoreDelay_CheckedChanged);
             // 
+            // btn_color_way
+            // 
+            this.btn_color_way.Location = new System.Drawing.Point(146, 19);
+            this.btn_color_way.Name = "btn_color_way";
+            this.btn_color_way.Size = new System.Drawing.Size(40, 40);
+            this.btn_color_way.TabIndex = 6;
+            this.toolTip_ShowInf.SetToolTip(this.btn_color_way, "Chose the color of Way Node");
+            this.btn_color_way.UseVisualStyleBackColor = true;
+            this.btn_color_way.Click += new System.EventHandler(this.btn_color_way_Click);
+            // 
             // colorDialog1
             // 
             this.colorDialog1.AllowFullOpen = false;
@@ -179,7 +189,7 @@ namespace WindowsFormsApp1
             this.groupBox1.Controls.Add(this.btn_color_end);
             this.groupBox1.Controls.Add(this.btn_color_block);
             this.groupBox1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(3, 75);
+            this.groupBox1.Location = new System.Drawing.Point(3, 150);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(190, 69);
             this.groupBox1.TabIndex = 9;
@@ -264,16 +274,6 @@ namespace WindowsFormsApp1
             this.label3.Size = new System.Drawing.Size(154, 19);
             this.label3.TabIndex = 12;
             this.label3.Text = "MAZE GENERATOR";
-            // 
-            // btn_color_way
-            // 
-            this.btn_color_way.Location = new System.Drawing.Point(146, 19);
-            this.btn_color_way.Name = "btn_color_way";
-            this.btn_color_way.Size = new System.Drawing.Size(40, 40);
-            this.btn_color_way.TabIndex = 6;
-            this.toolTip_ShowInf.SetToolTip(this.btn_color_way, "Chose the color of Way Node");
-            this.btn_color_way.UseVisualStyleBackColor = true;
-            this.btn_color_way.Click += new System.EventHandler(this.btn_color_way_Click);
             // 
             // SettingForm
             // 
