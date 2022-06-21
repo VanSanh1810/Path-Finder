@@ -311,8 +311,15 @@ namespace WindowsFormsApp1
         {
             if (sender.GetType() == typeof(System.Windows.Forms.PictureBox))
             {
-                int X = e.X;
+                /*int X = e.X;
                 int Y = e.Y;
+                lb_step.Text = X.ToString();
+                lb_time.Text = Y.ToString();
+                if(X<0 || X > 13 || Y < 0 || Y > 13)
+                {
+                    
+                }*/
+                
                 PictureBox p = (PictureBox)sender;
                 int Name_INT = Convert.ToInt32(p.Name);
                 int i = Name_INT / PROGRAM_STATIC_VARS.main_W;
